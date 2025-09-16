@@ -1,11 +1,14 @@
 using Clinic4Us.Domain.Model;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-    public class PaymentRecurrence :Base
+
+    [Table("paymentRecurrence")]
+    public class PaymentRecurrence : Base
     {
-        public int? PlansSubscritpionId { get; set; }
+        public long? PlansSubscritpionId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string? PaymentTransactionStatus { get; set; }
         public string? PaymentTransactionId { get; set; }

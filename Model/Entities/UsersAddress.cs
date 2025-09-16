@@ -1,11 +1,13 @@
 using Clinic4Us.Domain.Model;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
+    [Table("usersAddress")]
     public class UsersAddress : Base
     {
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Street { get; set; }
@@ -15,8 +17,8 @@ namespace Model.Entities
         public string? Neighborhood { get; set; }
         public bool? MainAddress { get; set; }
         public bool? Active { get; set; }
-        public int? UpdatedBy { get; set; }
-        public int? CreatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

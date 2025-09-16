@@ -16,33 +16,33 @@ namespace Data.Repositories
 
         public async Task<PaymentRecurrence?> GetByIdAsync(long id)
         {
-            return await _context.PaymentRecurrences.FindAsync(id);
+            return await _context.PaymentRecurrence.FindAsync(id);
         }
 
         public async Task<IEnumerable<PaymentRecurrence>> GetAllAsync()
         {
-            return await _context.PaymentRecurrences.ToListAsync();
+            return await _context.PaymentRecurrence.ToListAsync();
         }
 
         public async Task<PaymentRecurrence> AddAsync(PaymentRecurrence entity)
         {
-            _context.PaymentRecurrences.Add(entity);
+            _context.PaymentRecurrence.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
         public async Task<PaymentRecurrence> UpdateAsync(PaymentRecurrence entity)
         {
-            _context.PaymentRecurrences.Update(entity);
+            _context.PaymentRecurrence.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _context.PaymentRecurrences.FindAsync(id);
+            var entity = await _context.PaymentRecurrence.FindAsync(id);
             if (entity == null) return false;
-            _context.PaymentRecurrences.Remove(entity);
+            _context.PaymentRecurrence.Remove(entity);
             await _context.SaveChangesAsync();
             return true;
         }

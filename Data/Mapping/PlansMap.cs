@@ -4,9 +4,9 @@ using Model.Entities;
 
 namespace Data.Mapping
 {
-    public class PlansMap : IEntityTypeConfiguration<Plan>
+    public class PlansMap : IEntityTypeConfiguration<Plans>
     {
-        public void Configure(EntityTypeBuilder<Plan> builder)
+        public void Configure(EntityTypeBuilder<Plans> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.PlanTitle).HasMaxLength(250);

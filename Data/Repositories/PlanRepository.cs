@@ -14,24 +14,24 @@ namespace Data.Repositories
             _context = context;
         }
 
-        public async Task<Plan?> GetByIdAsync(long id)
+        public async Task<Plans?> GetByIdAsync(long id)
         {
             return await _context.Plans.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Plan>> GetAllAsync()
+        public async Task<IEnumerable<Plans>> GetAllAsync()
         {
             return await _context.Plans.ToListAsync();
         }
 
-        public async Task<Plan> AddAsync(Plan entity)
+        public async Task<Plans> AddAsync(Plans entity)
         {
             _context.Plans.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<Plan> UpdateAsync(Plan entity)
+        public async Task<Plans> UpdateAsync(Plans entity)
         {
             _context.Plans.Update(entity);
             await _context.SaveChangesAsync();

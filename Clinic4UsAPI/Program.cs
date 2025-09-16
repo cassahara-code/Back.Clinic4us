@@ -30,7 +30,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<Clinic4UsDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(5, 7, 32)) // ajuste a versão conforme seu servidor MySQL
+        new MySqlServerVersion(new Version(5, 7, 29)),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure()
     ));
 
 builder.Services.AddControllers();

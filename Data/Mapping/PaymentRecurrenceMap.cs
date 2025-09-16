@@ -11,7 +11,9 @@ namespace Data.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.PaymentTransactionStatus).HasMaxLength(45);
             builder.Property(x => x.PaymentTransactionId).HasMaxLength(100);
-            builder.HasOne(x => x.PlansSubscription).WithMany(x => x.PaymentRecurrences).HasForeignKey(x => x.PlansSubscritpionId);
+            builder.HasOne(x => x.PlansSubscription)
+                .WithMany(x => x.PaymentRecurrences)
+                .HasForeignKey(x => x.PlansSubscritpionId);
         }
     }
 }

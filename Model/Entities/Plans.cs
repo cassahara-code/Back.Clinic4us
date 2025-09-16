@@ -1,10 +1,10 @@
 using Clinic4Us.Domain.Model;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-    public class Plan : Base
+    [Table("plans")]
+    public class Plans : Base
     {
         public string? PlanTitle { get; set; }
         public string? Description { get; set; }
@@ -12,8 +12,8 @@ namespace Model.Entities
         public decimal? AnualyValue { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? UpdatedBy { get; set; }
+        public long? CreatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
 
         // Navigation property
         public ICollection<PlansSubscription>? PlansSubscriptions { get; set; }

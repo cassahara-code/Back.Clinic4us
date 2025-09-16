@@ -8,7 +8,7 @@ namespace Application.Automapper
     {
         public AutoMapperSetup()
         {
-            CreateMap<Plan, PlanViewModel>().ReverseMap();
+            CreateMap<Plans, PlanViewModel>().ReverseMap();
             CreateMap<PlansSubscription, PlansSubscriptionViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<UsersAddress, UsersAddressViewModel>().ReverseMap();

@@ -30,14 +30,14 @@ namespace Application.Services
 
         public async Task<PlanViewModel> AddAsync(PlanViewModel viewModel)
         {
-            var entity = _mapper.Map<Model.Entities.Plan>(viewModel);
+            var entity = _mapper.Map<Model.Entities.Plans>(viewModel);
             var result = await _repository.AddAsync(entity);
             return _mapper.Map<PlanViewModel>(result);
         }
 
         public async Task<PlanViewModel> UpdateAsync(PlanViewModel viewModel)
         {
-            var entity = _mapper.Map<Model.Entities.Plan>(viewModel);
+            var entity = _mapper.Map<Model.Entities.Plans>(viewModel);
             var result = await _repository.UpdateAsync(entity);
             return _mapper.Map<PlanViewModel>(result);
         }

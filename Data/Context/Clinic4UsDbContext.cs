@@ -8,11 +8,11 @@ namespace Data.Context
     {
         public Clinic4UsDbContext(DbContextOptions<Clinic4UsDbContext> options) : base(options) { }
 
-        public DbSet<Plan> Plans { get; set; }
+        public DbSet<Plans> Plans { get; set; }
         public DbSet<PlansSubscription> PlansSubscriptions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UsersAddress> UsersAddresses { get; set; }
-        public DbSet<PaymentRecurrence> PaymentRecurrences { get; set; }
+        public DbSet<PaymentRecurrence> PaymentRecurrence { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

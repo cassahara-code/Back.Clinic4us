@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Application\Clinic4Us.Application.csproj" />
     <ProjectReference Include="..\Model\Clinic4Us.Domain.csproj" />
   </ItemGroup>

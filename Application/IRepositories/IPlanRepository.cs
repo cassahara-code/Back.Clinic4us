@@ -6,10 +6,10 @@ namespace Application.IRepositories
 {
     public interface IPlanRepository
     {
-        Task<Plan?> GetByIdAsync(long id);
-        Task<IEnumerable<Plan>> GetAllAsync();
-        Task<Plan> AddAsync(Plan entity);
-        Task<Plan> UpdateAsync(Plan entity);
+        Task<Plans?> GetByIdAsync(long id);
+        Task<IEnumerable<Plans>> GetAllAsync();
+        Task<Plans> AddAsync(Plans entity);
+        Task<Plans> UpdateAsync(Plans entity);
         Task<bool> DeleteAsync(long id);
     }
 }

@@ -1,9 +1,12 @@
 using Clinic4Us.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
+
+    [Table("users")]
     public class User : Base
     {
         public string? Name { get; set; }
@@ -13,9 +16,9 @@ namespace Model.Entities
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public int? CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public int? UpdatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
         public bool? Active { get; set; }
 
         // Navigation properties
