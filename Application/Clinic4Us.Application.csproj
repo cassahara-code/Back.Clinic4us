@@ -9,10 +9,16 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="mercadopago-sdk" Version="2.10.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Model\Clinic4Us.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\MercadoPago\" />
   </ItemGroup>
 
 </Project>
