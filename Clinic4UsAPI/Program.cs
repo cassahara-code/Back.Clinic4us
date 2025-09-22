@@ -43,11 +43,11 @@ builder.Services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperSetup>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 
