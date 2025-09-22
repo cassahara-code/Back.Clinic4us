@@ -1,4 +1,6 @@
 using Clinic4Us.Domain.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
@@ -15,7 +17,8 @@ namespace Model.Entities
         public long? CreatedBy { get; set; }
         public long? UpdatedBy { get; set; }
 
-        // Navigation property
+        // Navigation properties
+        public ICollection<PlansBenefit>? PlansBenefits { get; set; }
         public ICollection<PlansSubscription>? PlansSubscriptions { get; set; }
     }
 }

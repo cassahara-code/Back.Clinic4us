@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-
-    [Table("paymentRecurrence")]
+    [Table("paymentrecurrence")]
     public class PaymentRecurrence : Base
     {
         public long? PlansSubscritpionId { get; set; }

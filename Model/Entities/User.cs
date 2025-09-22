@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-
     [Table("users")]
     public class User : Base
     {

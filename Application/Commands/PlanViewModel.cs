@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Application.Commands.ViewModels
 {
     public class PlanViewModel
@@ -11,5 +14,6 @@ namespace Application.Commands.ViewModels
         public DateTime? UpdatedAt { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set; }
+        public List<PlansBenefitViewModel>? PlansBenefits { get; set; }
     }
 }

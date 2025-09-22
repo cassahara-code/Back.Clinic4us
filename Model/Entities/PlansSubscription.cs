@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-
-    [Table("plansSubscriptions")]
+    [Table("planssubscriptions")]
     public class PlansSubscription : Base
     {
-        public long? PlansId { get; set; } // Corrigido para long?
+        public long? PlansId { get; set; }
         public long? UserId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
@@ -18,7 +17,8 @@ namespace Model.Entities
         public string? PeriodType { get; set; }
         public decimal? PlanValue { get; set; }
         public string? PaymentStatus { get; set; }
-        public int? PaymentId { get; set; }
+        public long? PaymentId { get; set; }
+        public string? PlansSubscriptionscol { get; set; }
 
         // Navigation properties
         public Plans? Plan { get; set; }
