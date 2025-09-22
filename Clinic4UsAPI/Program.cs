@@ -40,6 +40,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperSetup>());
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy
+            .WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+    );
+});
 // Não é necessário AddHttpClient para SDK MercadoPago
 var app = builder.Build();
 
@@ -51,7 +60,7 @@ var app = builder.Build();
 //}
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
-
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
 app.MapControllers();
