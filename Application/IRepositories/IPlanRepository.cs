@@ -11,5 +11,6 @@ namespace Application.IRepositories
         Task<Plans> AddAsync(Plans entity);
         Task<Plans> UpdateAsync(Plans entity);
         Task<bool> DeleteAsync(long id);
+        Task<IEnumerable<Plans>> GetAllWithBenefitsAsync(); // Adicionado para LandPageAdminController
     }
 }

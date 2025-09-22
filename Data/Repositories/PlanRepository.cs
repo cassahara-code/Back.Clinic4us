@@ -16,7 +16,9 @@ namespace Data.Repositories
 
         public async Task<Plans?> GetByIdAsync(long id)
         {
-            return await _context.Plans.FindAsync(id);
+            return await _context.Plans
+                .Include(p => p.PlansBenefits)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Plans>> GetAllAsync()
@@ -40,11 +42,28 @@ namespace Data.Repositories
 
         public async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _context.Plans.FindAsync(id);
+            var entity = await _context.Plans
+                .Include(p => p.PlansBenefits)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (entity == null) return false;
+
+            // Remove os benefícios associados
+            if (entity.PlansBenefits != null && entity.PlansBenefits.Any())
+            {
+                _context.Set<PlansBenefit>().RemoveRange(entity.PlansBenefits);
+            }
+
             _context.Plans.Remove(entity);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<Plans>> GetAllWithBenefitsAsync()
+        {
+            return await _context.Plans
+                .Include(p => p.PlansBenefits)
+                .ToListAsync();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
-    [Table("usersAddress")]
+    [Table("usersaddress")]
     public class UsersAddress : Base
     {
         public long? UserId { get; set; }

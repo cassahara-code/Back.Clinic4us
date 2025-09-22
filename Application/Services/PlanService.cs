@@ -19,12 +19,13 @@ namespace Application.Services
         public async Task<PlanViewModel?> GetByIdAsync(long id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            return entity == null ? null : _mapper.Map<PlanViewModel>(entity);
+            if (entity == null) return null;
+            return _mapper.Map<PlanViewModel>(entity);
         }
 
         public async Task<IEnumerable<PlanViewModel>> GetAllAsync()
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetAllWithBenefitsAsync();
             return _mapper.Map<IEnumerable<PlanViewModel>>(entities);
         }
 
