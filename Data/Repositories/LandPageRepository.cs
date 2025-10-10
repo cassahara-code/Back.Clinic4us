@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Data.Repositories
+namespace Clinic4Us.Data.Repositories
 {
     public class LandPageRepository : ILandPageRepository
     {
@@ -23,14 +23,14 @@ namespace Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Plans?> GetPlanByIdAsync(long id)
+        public async Task<Plans?> GetPlanByIdAsync(Guid id)
         {
             return await _context.Plans
                 .Include(p => p.PlansBenefits)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<PlansBenefit?> GetBenefitByIdAsync(long id)
+        public async Task<PlansBenefit?> GetBenefitByIdAsync(Guid id)
         {
             return await _context.Set<PlansBenefit>().FirstOrDefaultAsync(b => b.Id == id);
         }
@@ -49,7 +49,7 @@ namespace Data.Repositories
             return plan;
         }
 
-        public async Task<bool> DeletePlanAsync(long id)
+        public async Task<bool> DeletePlanAsync(Guid id)
         {
             var plan = await _context.Plans.FindAsync(id);
             if (plan == null) return false;
@@ -72,7 +72,7 @@ namespace Data.Repositories
             return benefit;
         }
 
-        public async Task<bool> DeleteBenefitAsync(long id)
+        public async Task<bool> DeleteBenefitAsync(Guid id)
         {
             var benefit = await _context.Set<PlansBenefit>().FindAsync(id);
             if (benefit == null) return false;

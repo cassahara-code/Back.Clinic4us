@@ -1,6 +1,8 @@
 using Application.Commands.ViewModels;
+using Application.DTOs.Requests;
 using Application.IServices;
 using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
 
 namespace Clinic4UsAPI.Controller
 {
@@ -9,25 +11,194 @@ namespace Clinic4UsAPI.Controller
     public class PlanController : ControllerBase
     {
         private readonly IPlanService _service;
+
         public PlanController(IPlanService service) => _service = service;
 
-        [HttpGet]
+        #region Endpoints Legacy (ViewModels) - Mantidos para compatibilidade
+        
+        [HttpGet("legacy")]
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        [HttpGet("legacy/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
             return result == null ? NotFound() : Ok(result);
         }
 
+        [HttpPost("legacy")]
+        public async Task<IActionResult> Add([FromBody] PlanViewModel viewModel)
+        {
+            try
+            {
+                var result = await _service.AddAsync(viewModel);
+                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { errors = ex.Errors.Select(e => e.ErrorMessage) });
+            }
+        }
+
+        [HttpPut("legacy")]
+        public async Task<IActionResult> Update([FromBody] PlanViewModel viewModel)
+        {
+            try
+            {
+                var result = await _service.UpdateAsync(viewModel);
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { errors = ex.Errors.Select(e => e.ErrorMessage) });
+            }
+        }
+
+        [HttpDelete("legacy/{id}")]
+        public async Task<IActionResult> Delete(Guid id) => Ok(await _service.DeleteAsync(id));
+
+        #endregion
+
+        #region Endpoints com DTOs (Recomendados)
+
+        /// <summary>
+        /// Obtém todos os planos
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> GetAllPlans()
+        {
+            var plans = await _service.GetAllPlansAsync();
+            return Ok(plans);
+        }
+
+        /// <summary>
+        /// Obtém todos os planos com benefícios
+        /// </summary>
+        [HttpGet("with-benefits")]
+        public async Task<IActionResult> GetAllPlansWithBenefits()
+        {
+            var plans = await _service.GetPlansWithBenefitsAsync();
+            return Ok(plans);
+        }
+
+        /// <summary>
+        /// Obtém um plano por ID
+        /// </summary>
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetPlanById(Guid id)
+        {
+            // Guid is a non-nullable value type, so this check is unnecessary and always false.
+            // Remove: if (id == null)
+            // If you want to check for an empty Guid, use Guid.Empty instead.
+            if (id == Guid.Empty)
+                return BadRequest("ID deve ser informado");
+
+            var plan = await _service.GetPlanByIdAsync(id);
+            return plan == null ? NotFound($"Plano com codigo {id} não encontrado") : Ok(plan);
+        }
+
+        /// <summary>
+        /// Verifica se um plano existe
+        /// </summary>
+        [HttpGet("{id:Guid}/exists")]
+        public async Task<IActionResult> PlanExists(Guid id)
+        {
+            var exists = await _service.PlanExistsAsync(id);
+            return Ok(new { exists });
+        }
+
+        /// <summary>
+        /// Cria um novo plano
+        /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] PlanViewModel viewModel) => Ok(await _service.AddAsync(viewModel));
+        public async Task<IActionResult> CreatePlan([FromBody] CreatePlanRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] PlanViewModel viewModel) => Ok(await _service.UpdateAsync(viewModel));
+            try
+            {
+                // TODO: Obter o ID do usuário logado do token/session
+                Guid createdBy = Guid.NewGuid(); // Temporário - deve vir da autenticação
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) => Ok(await _service.DeleteAsync(id));
+                var plan = await _service.CreatePlanAsync(request, createdBy);
+                return CreatedAtAction(nameof(GetPlanById), new { id = plan.Id }, plan);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { errors = ex.Errors.Select(e => e.ErrorMessage) });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro interno do servidor", detail = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Atualiza um plano existente
+        /// </summary>
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> UpdatePlan(Guid id, [FromBody] UpdatePlanRequest request)
+        {
+            if (id != request.Id)
+                return BadRequest("ID da URL deve corresponder ao ID do corpo da requisição");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                // TODO: Obter o ID do usuário logado do token/session
+                Guid updatedBy = Guid.NewGuid(); // Temporário - deve vir da autenticação
+
+                var plan = await _service.UpdatePlanAsync(request, updatedBy);
+                return Ok(plan);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(new { errors = ex.Errors.Select(e => e.ErrorMessage) });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro interno do servidor", detail = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Exclui um plano
+        /// </summary>
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeletePlan(Guid id)
+        {
+            // Guid is a non-nullable value type, so this check is unnecessary and always false.
+            // Remove: if (id == null)
+            // If you want to check for an empty Guid, use Guid.Empty instead.
+            if (id == Guid.Empty)
+                return BadRequest("ID deve ser maior que zero");
+
+            try
+            {
+                var deleted = await _service.DeletePlanAsync(id);
+                return deleted ? NoContent() : NotFound($"Plano com ID {id} não encontrado");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro interno do servidor", detail = ex.Message });
+            }
+        }
+
+        #endregion
     }
 }
