@@ -3,7 +3,7 @@ using Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Data.Context;
 
-namespace Data.Repositories
+namespace Clinic4Us.Data.Repositories
 {
     public class PaymentRecurrenceRepository : IPaymentRecurrenceRepository
     {

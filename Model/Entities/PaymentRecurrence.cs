@@ -7,7 +7,7 @@ namespace Model.Entities
     [Table("paymentrecurrence")]
     public class PaymentRecurrence : Base
     {
-        public long? PlansSubscritpionId { get; set; }
+        public Guid? PlansSubscritpionId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public string? PaymentTransactionStatus { get; set; }
         public string? PaymentTransactionId { get; set; }
