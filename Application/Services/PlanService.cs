@@ -16,7 +16,7 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        public async Task<PlanViewModel?> GetByIdAsync(long id)
+        public async Task<PlanViewModel?> GetByIdAsync(Guid id)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return null;
@@ -43,7 +43,7 @@ namespace Application.Services
             return _mapper.Map<PlanViewModel>(result);
         }
 
-        public async Task<bool> DeleteAsync(long id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             return await _repository.DeleteAsync(id);
         }

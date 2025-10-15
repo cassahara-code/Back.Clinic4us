@@ -14,7 +14,7 @@ namespace Data.Repositories
             _context = context;
         }
 
-        public async Task<Plans?> GetByIdAsync(long id)
+        public async Task<Plans?> GetByIdAsync(Guid id)
         {
             return await _context.Plans
                 .Include(p => p.PlansBenefits)
@@ -40,7 +40,7 @@ namespace Data.Repositories
             return entity;
         }
 
-        public async Task<bool> DeleteAsync(long id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var entity = await _context.Plans
                 .Include(p => p.PlansBenefits)

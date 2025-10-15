@@ -13,6 +13,7 @@ namespace Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UsersAddress> UsersAddresses { get; set; }
         public DbSet<PaymentRecurrence> PaymentRecurrence { get; set; }
+        public DbSet<Entities> Entities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -6,10 +6,10 @@ namespace Application.IServices
 {
     public interface IPlanService
     {
-        Task<PlanViewModel?> GetByIdAsync(long id);
+        Task<PlanViewModel?> GetByIdAsync(Guid id);
         Task<IEnumerable<PlanViewModel>> GetAllAsync();
         Task<PlanViewModel> AddAsync(PlanViewModel viewModel);
         Task<PlanViewModel> UpdateAsync(PlanViewModel viewModel);
-        Task<bool> DeleteAsync(long id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

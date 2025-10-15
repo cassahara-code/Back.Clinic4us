@@ -8,16 +8,16 @@ namespace Model.Entities
     [Table("planssubscriptions")]
     public class PlansSubscription : Base
     {
-        public long? PlansId { get; set; }
-        public long? UserId { get; set; }
+        public Guid? PlansId { get; set; }
+        public Guid? UserId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public long? CreatedBy { get; set; }
-        public long? UpdatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
         public string? PeriodType { get; set; }
         public decimal? PlanValue { get; set; }
         public string? PaymentStatus { get; set; }
-        public long? PaymentId { get; set; }
+        public Guid? PaymentId { get; set; }
         public string? PlansSubscriptionscol { get; set; }
 
         // Navigation properties

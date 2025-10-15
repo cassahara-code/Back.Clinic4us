@@ -15,7 +15,7 @@ namespace Clinic4UsAPI.Controller
         public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
             return result == null ? NotFound() : Ok(result);
@@ -28,6 +28,6 @@ namespace Clinic4UsAPI.Controller
         public async Task<IActionResult> Update([FromBody] PlanViewModel viewModel) => Ok(await _service.UpdateAsync(viewModel));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id) => Ok(await _service.DeleteAsync(id));
+        public async Task<IActionResult> Delete(Guid id) => Ok(await _service.DeleteAsync(id));
     }
 }

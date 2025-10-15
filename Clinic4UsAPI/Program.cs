@@ -36,6 +36,11 @@ builder.Services.AddScoped<IUsersAddressRepository, UsersAddressRepository>();
 builder.Services.AddScoped<IPaymentRecurrenceRepository, PaymentRecurrenceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILandPageRepository, LandPageRepository>();
+
+// Entities registration
+builder.Services.AddScoped<IEntitiesRepository, EntitiesRepository>();
+builder.Services.AddScoped<IEntitiesService, EntitiesService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
