@@ -45,8 +45,9 @@ namespace Application.Services
             }
             var entity = _mapper.Map<Plans>(viewModel);
             entity.Id = Guid.NewGuid();
+            entity.CreatedBy = Guid.Parse("844ed7d1-e759-4f67-a377-da8bdd58e8cb");
             entity.CreatedAt = DateTime.UtcNow;
-            
+
             var result = await _repository.AddAsync(entity);
             return _mapper.Map<PlanViewModelResponse>(result);
         }
@@ -136,7 +137,7 @@ namespace Application.Services
 
             // Mapeia os dados atualizados
             _mapper.Map(request, existingEntity);
-            
+
             // Restaurar dados de criação e configurar atualização
             existingEntity.CreatedAt = createdDate;
             existingEntity.CreatedBy = creator;
