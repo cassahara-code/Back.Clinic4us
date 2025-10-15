@@ -6,6 +6,7 @@ namespace Application.DTOs.Requests
     {
         public bool? Active { get; set; }
         public string? AddressCity { get; set; }
+        public string? AddressNeighborhood { get; set; }
         public string? AddressComplement { get; set; }
         public string? AddressDistrict { get; set; }
         public string? AddressNumber { get; set; }

@@ -19,6 +19,18 @@ builder.Services.AddDbContext<Clinic4UsDbContext>(options =>
     )
 );
 
+// CORS: permite o front em http://localhost:3000
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DefaultCors", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 // Add services to the container.
 //IoCExtensions.RegistrarServicos(builder.Services);
 
@@ -56,6 +68,9 @@ var app = builder.Build();
 //}
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
+// Habilita CORS
+app.UseCors("DefaultCors");
+
 
 app.UseAuthorization();
 
