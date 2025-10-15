@@ -3,6 +3,7 @@ using Application.DTOs.Requests;
 using Application.IServices;
 using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
+using System.Security.Claims;
 
 namespace Clinic4UsAPI.Controller
 {
@@ -13,6 +14,16 @@ namespace Clinic4UsAPI.Controller
         private readonly IPlanService _service;
 
         public PlanController(IPlanService service) => _service = service;
+
+        // Helper para obter o ID do usuário autenticado a partir do token
+        private Guid GetCurrentUserId()
+        {
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier)
+                        ?? User.FindFirst("sub")
+                        ?? User.FindFirst("uid");
+
+            return claim != null && Guid.TryParse(claim.Value, out var id) ? id : Guid.Empty;
+        }
 
         #region Endpoints Legacy (ViewModels) - Mantidos para compatibilidade
         
@@ -31,6 +42,7 @@ namespace Clinic4UsAPI.Controller
         {
             try
             {
+                var user = GetCurrentUserId();
                 var result = await _service.AddAsync(viewModel);
                 return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
             }
@@ -87,9 +99,6 @@ namespace Clinic4UsAPI.Controller
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetPlanById(Guid id)
         {
-            // Guid is a non-nullable value type, so this check is unnecessary and always false.
-            // Remove: if (id == null)
-            // If you want to check for an empty Guid, use Guid.Empty instead.
             if (id == Guid.Empty)
                 return BadRequest("ID deve ser informado");
 
@@ -118,8 +127,9 @@ namespace Clinic4UsAPI.Controller
 
             try
             {
-                // TODO: Obter o ID do usuário logado do token/session
-                Guid createdBy = Guid.NewGuid(); // Temporário - deve vir da autenticação
+                var createdBy = GetCurrentUserId();
+                if (createdBy == Guid.Empty)
+                    return Unauthorized("Usuário não autenticado");
 
                 var plan = await _service.CreatePlanAsync(request, createdBy);
                 return CreatedAtAction(nameof(GetPlanById), new { id = plan.Id }, plan);
@@ -152,8 +162,9 @@ namespace Clinic4UsAPI.Controller
 
             try
             {
-                // TODO: Obter o ID do usuário logado do token/session
-                Guid updatedBy = Guid.NewGuid(); // Temporário - deve vir da autenticação
+                var updatedBy = GetCurrentUserId();
+                if (updatedBy == Guid.Empty)
+                    return Unauthorized("Usuário não autenticado");
 
                 var plan = await _service.UpdatePlanAsync(request, updatedBy);
                 return Ok(plan);
@@ -178,9 +189,6 @@ namespace Clinic4UsAPI.Controller
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeletePlan(Guid id)
         {
-            // Guid is a non-nullable value type, so this check is unnecessary and always false.
-            // Remove: if (id == null)
-            // If you want to check for an empty Guid, use Guid.Empty instead.
             if (id == Guid.Empty)
                 return BadRequest("ID deve ser maior que zero");
 
