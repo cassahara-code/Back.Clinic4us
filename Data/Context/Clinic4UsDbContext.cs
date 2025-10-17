@@ -13,6 +13,8 @@ namespace Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UsersAddress> UsersAddresses { get; set; }
         public DbSet<PaymentRecurrence> PaymentRecurrence { get; set; }
+        public DbSet<PlansBenefit> PlansBenefits { get; set; }
+        public DbSet<Benefits> Benefits { get; set; }
         public DbSet<Entities> Entities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,11 +24,10 @@ namespace Data.Context
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new UsersAddressMap());
             modelBuilder.ApplyConfiguration(new PaymentRecurrenceMap());
-
+            modelBuilder.ApplyConfiguration(new PlansBenefitMap());
+            modelBuilder.ApplyConfiguration(new BenefitsMap());
 
             base.OnModelCreating(modelBuilder);
-
-
         }
     }
 }

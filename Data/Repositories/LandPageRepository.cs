@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Data.Repositories
+namespace Clinic4Us.Data.Repositories
 {
     public class LandPageRepository : ILandPageRepository
     {
