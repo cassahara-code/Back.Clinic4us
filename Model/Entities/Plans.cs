@@ -11,7 +11,7 @@ namespace Model.Entities
         public string? PlanTitle { get; set; }
         public string? Description { get; set; }
         public decimal? MonthlyValue { get; set; }
-        public decimal? AnualyValue { get; set; }
+        public decimal? AnnuallyValue { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }

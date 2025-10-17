@@ -19,8 +19,8 @@ namespace Application.DTOs.Requests
         [EmailAddress]
         public string? Email { get; set; }
         public string? EntityNickName { get; set; }
-        public DateTime? FinalWorkHour { get; set; }
-        public DateTime? InitialWorkHour { get; set; }
+        public string? FinalWorkHour { get; set; }
+        public string? InitialWorkHour { get; set; }
         public string? InscricaoEstadual { get; set; }
         public string? InscricaoMunicipal { get; set; }
         public string? PersonType { get; set; }

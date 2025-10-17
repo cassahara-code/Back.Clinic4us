@@ -1,4 +1,6 @@
 using Application.Commands.ViewModels;
+using Application.DTOs.Requests;
+using Application.DTOs.Responses;
 using AutoMapper;
 using Model.Entities;
 
@@ -8,33 +10,32 @@ namespace Application.Automapper
     {
         public AutoMapperSetup()
         {
-            // ViewModels (legado)
             CreateMap<Plans, PlanViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.PlansBenefits, opt => opt.MapFrom(src => src.PlansBenefits));
 
             CreateMap<PlanViewModel, Plans>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .AfterMap((src, dest) =>
-                {
-                    if (dest.PlansBenefits == null) return;
-                    var planId = dest.Id;
-                    foreach (var b in dest.PlansBenefits)
-                    {
-                        b.PlanId = planId;
-                    }
-                });
+                .ForMember(dest => dest.PlansBenefits, opt => opt.MapFrom(src => src.PlansBenefits));
 
-            CreateMap<PlansBenefit, PlansBenefitViewModel>().ReverseMap();
+            CreateMap<PlansBenefit, PlansBenefitViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId));
+
+            CreateMap<PlansBenefitViewModel, PlansBenefit>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId));
+
             CreateMap<PlansSubscription, PlansSubscriptionViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<UsersAddress, UsersAddressViewModel>().ReverseMap();
             CreateMap<PaymentRecurrence, PaymentRecurrenceViewModel>().ReverseMap();
 
             // Entities DTOs
-            CreateMap<Entities, Application.DTOs.Responses.EntityResponse>();
-            CreateMap<Application.DTOs.Requests.CreateEntityRequest, Entities>()
+            CreateMap<Entities, EntityResponse>();
+            CreateMap<CreateEntityRequest, Entities>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            CreateMap<Application.DTOs.Requests.UpdateEntityRequest, Entities>()
+            CreateMap<UpdateEntityRequest, Entities>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
