@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 
 namespace Application.Commands.ViewModels
 {
     public class PlansBenefitViewModel
     {
-        //public Guid Id { get; set; }
-        //public Guid? PlanId { get; set; }
+        public Guid Id { get; set; }
+        public Guid? PlanId { get; set; }
         public string? ItenDescription { get; set; }
         public bool? Covered { get; set; }
         public DateTime? CreatedAt { get; set; }

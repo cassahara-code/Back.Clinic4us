@@ -1,10 +1,8 @@
-using Clinic4Us.Domain.Model;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Model.Entities
+namespace Application.DTOs.Requests
 {
-    [Table("entities")]
-    public class Entities : Base
+    public class CreateEntityRequest
     {
         public bool? Active { get; set; }
         public string? AddressCity { get; set; }
@@ -18,6 +16,7 @@ namespace Model.Entities
         public string? CompanyName { get; set; }
         public bool? DefaultEntity { get; set; }
         public string? Document { get; set; }
+        [EmailAddress]
         public string? Email { get; set; }
         public string? EntityNickName { get; set; }
         public string? FinalWorkHour { get; set; }
@@ -28,13 +27,6 @@ namespace Model.Entities
         public string? Phone { get; set; }
         public string? PhoneCodeArea { get; set; }
         public long? WhatsappNumber { get; set; }
-        public Guid? Creator { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public DateTime? CreatedDate { get; set; }
         public string? Slug { get; set; }
-
-        // Navigation property (FK Creator -> users.id)
-        [ForeignKey(nameof(Creator))]
-        public User? CreatorUser { get; set; }
     }
 }

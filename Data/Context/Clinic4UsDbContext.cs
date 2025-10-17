@@ -15,6 +15,7 @@ namespace Data.Context
         public DbSet<PaymentRecurrence> PaymentRecurrence { get; set; }
         public DbSet<PlansBenefit> PlansBenefits { get; set; }
         public DbSet<Benefits> Benefits { get; set; }
+        public DbSet<Entities> Entities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

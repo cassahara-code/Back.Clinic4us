@@ -86,6 +86,9 @@ var app = builder.Build();
 //}
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
+// Habilita CORS
+app.UseCors("DefaultCors");
+
 
 app.UseCors("CorsPolicy");
 

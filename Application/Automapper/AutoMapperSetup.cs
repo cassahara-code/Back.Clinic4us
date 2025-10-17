@@ -22,9 +22,21 @@ namespace Application.Automapper
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
 
             CreateMap<Plans, PlanViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.PlansBenefits, opt => opt.MapFrom(src => src.PlansBenefits));
-            CreateMap<PlanViewModel, Plans>();
-            CreateMap<PlansBenefit, PlansBenefitViewModel>().ReverseMap();
+
+            CreateMap<PlanViewModel, Plans>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlansBenefits, opt => opt.MapFrom(src => src.PlansBenefits));
+
+            CreateMap<PlansBenefit, PlansBenefitViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId));
+
+            CreateMap<PlansBenefitViewModel, PlansBenefit>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PlanId, opt => opt.MapFrom(src => src.PlanId));
+
             CreateMap<PlansSubscription, PlansSubscriptionViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<UsersAddress, UsersAddressViewModel>().ReverseMap();

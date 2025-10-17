@@ -1,11 +1,8 @@
-using Clinic4Us.Domain.Model;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Model.Entities
+namespace Application.DTOs.Responses
 {
-    [Table("entities")]
-    public class Entities : Base
+    public class EntityResponse
     {
+        public Guid Id { get; set; }
         public bool? Active { get; set; }
         public string? AddressCity { get; set; }
         public string? AddressNeighborhood { get; set; }
@@ -32,9 +29,5 @@ namespace Model.Entities
         public DateTime? ModifiedDate { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? Slug { get; set; }
-
-        // Navigation property (FK Creator -> users.id)
-        [ForeignKey(nameof(Creator))]
-        public User? CreatorUser { get; set; }
     }
 }

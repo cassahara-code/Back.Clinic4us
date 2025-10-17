@@ -15,9 +15,9 @@ namespace Model.Entities
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public long? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public long? UpdatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
         public bool? Active { get; set; }
 
         // Navigation properties
