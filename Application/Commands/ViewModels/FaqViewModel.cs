@@ -1,16 +1,13 @@
-using Clinic4Us.Domain.Model;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Entities
+namespace Application.Commands.ViewModels
 {
-    [Table("faq")]
-    public class Faq :Base
+    public class FaqViewModel
     {
+        public Guid Id { get; set; }
         public bool? Active { get; set; }
         public string? Answer { get; set; }
-        public string? FaqType { get; set; }
+        public Guid? FaqType { get; set; }
         public string? Question { get; set; }
-        public string? Creator { get; set; }
+        public Guid? Creator { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? Slug { get; set; }
