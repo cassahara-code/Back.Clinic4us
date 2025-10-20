@@ -10,6 +10,20 @@ namespace Application.Automapper
     {
         public AutoMapperSetup()
         {
+            // Entity mappings
+            CreateMap<Entities, EntityResponse>();
+            CreateMap<CreateEntityRequest, Entities>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedDate, opt => opt.Ignore())
+                .ForMember(dest => dest.Creator, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatorUser, opt => opt.Ignore());
+
+            CreateMap<UpdateEntityRequest, Entities>()
+                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+                .ForMember(dest => dest.Creator, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatorUser, opt => opt.Ignore());
+
             // Mapeamentos legados (ViewModels)
             CreateMap<Plans, PlanViewModelResponse>()
                 .ForMember(dest => dest.PlansBenefits, opt => opt.MapFrom(src => src.PlansBenefits));

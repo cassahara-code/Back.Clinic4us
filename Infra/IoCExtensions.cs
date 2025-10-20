@@ -6,11 +6,14 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Commands.ViewModels;
 using Clinic4Us.Data.Repositories;
+using Data.Repositories;
+using Application.Automapper;
+
 namespace Infra
 {
     public static class IoCExtensions
     {
-        public static void RegistrarServicos(IServiceCollection services)
+        public static IServiceCollection RegistrarServicos(this IServiceCollection services)
         {
             // Serviços de domínio
             services.AddScoped<IPlanService, PlanService>();
@@ -19,6 +22,7 @@ namespace Infra
             services.AddScoped<IUsersAddressService, UsersAddressService>();
             services.AddScoped<IPaymentRecurrenceService, PaymentRecurrenceService>();
             services.AddScoped<IMercadoPagoService, MercadoPagoService>();
+            services.AddScoped<IEntitiesService, EntitiesService>();
 
             // Repositórios
             services.AddScoped<IPlanRepository, PlanRepository>();
@@ -27,10 +31,17 @@ namespace Infra
             services.AddScoped<IPaymentRecurrenceRepository, PaymentRecurrenceRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILandPageRepository, LandPageRepository>();
+            services.AddScoped<IEntitiesRepository, EntitiesRepository>();
 
             // Validadores FluentValidation
             services.AddScoped<IValidator<PlanViewModel>, PlanViewModelValidator>();
 
+            // AutoMapper
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperSetup>());
+
+          
+
+            return services;
         }
     }
 }
