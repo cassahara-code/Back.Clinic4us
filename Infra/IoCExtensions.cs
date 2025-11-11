@@ -1,4 +1,5 @@
-﻿using Application.IRepositories;
+﻿using Application.DTOs.Requests;
+using Application.IRepositories;
 using Application.IServices;
 using Application.Services;
 using Application.Validators;
@@ -8,6 +9,9 @@ using Application.Commands.ViewModels;
 using Clinic4Us.Data.Repositories;
 using Data.Repositories;
 using Application.Automapper;
+using FluentValidation.AspNetCore;
+using Application.Interfaces;
+using Domain.Interfaces;
 
 namespace Infra
 {
@@ -23,6 +27,9 @@ namespace Infra
             services.AddScoped<IPaymentRecurrenceService, PaymentRecurrenceService>();
             services.AddScoped<IMercadoPagoService, MercadoPagoService>();
             services.AddScoped<IEntitiesService, EntitiesService>();
+            services.AddScoped<IBenefitsService, BenefitsService>();
+            services.AddScoped<IFaqService, FaqService>();
+            services.AddScoped<IFaqTypesService, FaqTypesService>();
 
             // Repositórios
             services.AddScoped<IPlanRepository, PlanRepository>();
@@ -32,9 +39,15 @@ namespace Infra
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILandPageRepository, LandPageRepository>();
             services.AddScoped<IEntitiesRepository, EntitiesRepository>();
+            services.AddScoped<IBenefitsRepository, BenefitsRepository>();
+            services.AddScoped<IFaqRepository, FaqRepository>();
+            services.AddScoped<IFaqTypesRepository, FaqTypesRepository>();
 
-            // Validadores FluentValidation
+            services.AddControllers().AddFluentValidation();
+            services.AddScoped<IValidator<CreateBenefitRequest>, CreateBenefitRequestValidator>();
+            services.AddScoped<IValidator<UpdateBenefitRequest>, UpdateBenefitRequestValidator>();
             services.AddScoped<IValidator<PlanViewModel>, PlanViewModelValidator>();
+            //services.AddScoped<IValidator<FaqViewModel>, FaqViewModelValidator>();
 
             // AutoMapper
             services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperSetup>());

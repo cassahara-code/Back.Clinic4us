@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Data.Mapping;
+using Domain.Entities;
 
 namespace Data.Context
 {
@@ -16,6 +17,8 @@ namespace Data.Context
         public DbSet<PlansBenefit> PlansBenefits { get; set; }
         public DbSet<Benefits> Benefits { get; set; }
         public DbSet<Entities> Entities { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
+        public DbSet<FaqTypes> FaqTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +29,8 @@ namespace Data.Context
             modelBuilder.ApplyConfiguration(new PaymentRecurrenceMap());
             modelBuilder.ApplyConfiguration(new PlansBenefitMap());
             modelBuilder.ApplyConfiguration(new BenefitsMap());
+            modelBuilder.ApplyConfiguration(new FaqMap());
+            modelBuilder.ApplyConfiguration(new FaqTypesMap());
 
             base.OnModelCreating(modelBuilder);
         }

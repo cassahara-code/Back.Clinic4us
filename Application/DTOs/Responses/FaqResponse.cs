@@ -1,12 +1,11 @@
-using Clinic4Us.Domain.Model;
-
-namespace Domain.Entities
+namespace Application.DTOs.Responses
 {
-    public class Faq : Base
+    public class FaqResponse
     {
+        public Guid? Id { get; set; }
         public bool? Active { get; set; }
         public string? Answer { get; set; }
-        public Guid? FaqType { get; set; }
+        public string? FaqType { get; set; }
         public string? Question { get; set; }
         public Guid? Creator { get; set; }
         public DateTime? ModifiedDate { get; set; }
