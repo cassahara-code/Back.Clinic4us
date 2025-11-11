@@ -3,6 +3,7 @@ using Application.DTOs.Requests;
 using Application.DTOs.Responses;
 using AutoMapper;
 using Model.Entities;
+using Domain.Entities;
 
 namespace Application.Automapper
 {
@@ -117,6 +118,24 @@ namespace Application.Automapper
                 .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.Plan, opt => opt.Ignore());
+
+            // FAQ
+            CreateMap<Domain.Entities.Faq, FaqResponse>();
+            CreateMap<CreateFaqRequest, Domain.Entities.Faq>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedDate, opt => opt.Ignore());
+            CreateMap<UpdateFaqRequest, Domain.Entities.Faq>()
+                .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
+                .ForMember(dest => dest.ModifiedDate, opt => opt.Ignore());
+
+            CreateMap<Domain.Entities.FaqTypes, FaqTypeResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(dest => dest.Creator, opt => opt.MapFrom(src => src.Creator))
+                .ForMember(dest => dest.ModifiedDate, opt => opt.MapFrom(src => src.ModifiedDate))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
+                .ForMember(dest => dest.Slug, opt => opt.MapFrom(src => src.Slug));
         }
     }
 }
