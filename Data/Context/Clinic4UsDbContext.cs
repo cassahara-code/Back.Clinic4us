@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Model.Entities;
 using Data.Mapping;
 using Domain.Entities;
 
 namespace Data.Context
 {
-    public class Clinic4UsDbContext : DbContext
+    public class Clinic4UsDbContext : IdentityDbContext
     {
         public Clinic4UsDbContext(DbContextOptions<Clinic4UsDbContext> options) : base(options) { }
 
